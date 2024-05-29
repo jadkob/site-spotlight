@@ -40,7 +40,10 @@ export default function Profile() {
       ) : (
         <div className="flex flex-col gap-[10vh] items-center mt-[15vh]">
           {posts.map((post) => (
-            <div className="border border-solid w-fit p-[5vw] flex flex-col gap-[2vh]">
+            <div
+              key={post._id as string}
+              className="border border-solid w-fit p-[5vw] flex flex-col gap-[2vh]"
+            >
               <h1 className="text-center">Website Name: {post.name}</h1>
               <div>
                 <p className="text-left">

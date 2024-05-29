@@ -6,7 +6,7 @@ import Error from "../Error";
 import Loading from "../LoadingComp";
 import { useRouter } from "next/navigation";
 
-export default function logIn() {
+export default function LogIn() {
   const username = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
