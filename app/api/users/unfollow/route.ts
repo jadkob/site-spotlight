@@ -11,14 +11,14 @@ export async function POST(req: Request) {
     }
 
     const decoded: any = await jwt.decode(token);
-    const id = decoded._id;
+    const id = decoded.id;
 
     const { userId } = await req.json();
     const user1 = await User.findById(id);
     const user2 = await User.findById(userId);
 
     if (
-      !user2?.followers.includes(decoded._id) ||
+      !user2?.followers.includes(decoded.id) ||
       !user1?.following.includes(user2?.id)
     )
       return new Response("Not Followed");

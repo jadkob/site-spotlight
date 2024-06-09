@@ -63,20 +63,29 @@ export default function Home() {
       ) : error ? (
         <Error error={error} className="text-center mt-[30vh] text-[2.5rem]" />
       ) : (
-        <div className="flex flex-col gap-[10vh] items-center mt-[15vh]">
+        <div className="flex flex-col gap-[10vh] items-center justify-center mt-[15vh]">
           {posts.map((post) => (
             <div
               className="border border-solid w-fit p-[5vw] flex flex-col gap-[2vh]"
-              key={post._id as string}
+              key={post.id as string}
             >
+              <div className="text-center">
+                <Link href={`/user/${post.userId}`}>
+                  <h1>Username: {post.username}</h1>
+                </Link>
+              </div>
               <h1 className="text-center">Website Name: {post.name}</h1>
               <div>
-                <p className="text-left">
+                <p className="text-center">
                   Website Description: {post.description}
                 </p>
               </div>
-              <Link href={`http://${post.link}`} target="_blank">
-                <button className="btn btn-neutral btn-wide">
+              <Link
+                href={`https://${post.link}`}
+                target="_blank"
+                className="flex items-center w-full"
+              >
+                <button className="btn btn-neutral btn-wide items-center">
                   Visit Website
                 </button>
               </Link>

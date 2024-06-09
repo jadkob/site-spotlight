@@ -13,6 +13,7 @@ export default function Profile() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const fetchPosts = async () => {
+    setLoading(true);
     await axios
       .get("/api/posts/user", {
         headers: {
@@ -41,7 +42,7 @@ export default function Profile() {
         <div className="flex flex-col gap-[10vh] items-center mt-[15vh]">
           {posts.map((post) => (
             <div
-              key={post._id as string}
+              key={post.id as string}
               className="border border-solid w-fit p-[5vw] flex flex-col gap-[2vh]"
             >
               <h1 className="text-center">Website Name: {post.name}</h1>

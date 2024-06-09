@@ -11,24 +11,31 @@ export async function POST(req: Request) {
     }
 
     const decoded: any = await jwt.decode(token);
-    const id = decoded._id;
+    const id = decoded.id;
 
     const { userId } = await req.json();
     const user1 = await User.findById(id);
     const user2 = await User.findById(userId);
 
     if (
-      user2?.followers.includes(decoded._id) ||
+      user2?.followers.includes(decoded.id) ||
       user1?.following.includes(user2?.id)
-    )
-      return new Response("Already Followed");
+    ) {
+      return new Response("Already Followed", { status: 400 });
+    }
+
     await User.findByIdAndUpdate(id, {
-      following: { $push: userId },
+      $push: { following: userId },
     });
     await User.findByIdAndUpdate(userId, {
-      followers: { $push: id },
+      $push: { followers: id },
     });
-    return new Response("User Followed");
+
+    const newUser = await User.findById(userId).lean(); // Using lean() for a plain JavaScript object
+    return new Response(JSON.stringify(newUser), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
   } catch (error: any) {
     return new Response(error.message, { status: 500 });
   }

@@ -53,6 +53,7 @@ export async function POST(req: Request) {
       name: body.name,
       description: body.description,
       link: body.link,
+      userId: decoded.id,
     });
     await post.save();
 

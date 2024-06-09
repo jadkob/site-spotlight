@@ -3,6 +3,7 @@ import { siteSpotlight } from "../setup";
 
 const postSchema = new mongoose.Schema({
   username: String,
+  userId: String,
   name: String,
   description: String,
   link: String,
